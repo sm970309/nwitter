@@ -15,31 +15,28 @@ const Auth = () => {
         }
 
     }
-    const LogIn = async (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
         const auth = getAuth();
         try {
+            if (user){
             await signInWithEmailAndPassword(auth, email, password)
             setUser(true)
-            alert('로그인 성공')            
+            alert('로그인 성공')
+            }      
+            else{
+                await createUserWithEmailAndPassword(auth,email,password)
+                alert('회원가입 성공')
+            }      
         }catch(error){
             alert(error)
         }
     }
-    const CreateAccount = async (event) => {
-        event.preventDefault();
-        const auth = getAuth();
-        try {
-            await createUserWithEmailAndPassword(auth, email, password)
-            setUser(false)
-            alert('가입 성공')            
-        }catch(error){
-            alert(error)
-        }
-    }
+    const onClick = () => {setUser(prev => !prev)}
+    
     return (
         <div>
-            <form onSubmit={!user? LogIn:CreateAccount}>
+            <form onSubmit={onSubmit}>
                 <input
                     name="email"
                     type="text"
@@ -56,9 +53,9 @@ const Auth = () => {
                     value={password}
                     onChange={onChange}
                 />
-                <input type="submit" value="Log In" />
-                <input type="submit" value="Create Account" />
+                <input type="submit" value={user? "Log In":"Create Account"} />
             </form>
+            <span onClick={onClick}>{user? "Sign Up":"Log In"}</span>
             <div>
                 <button>Continue with Google</button>
                 <button>Continue with Github</button>
