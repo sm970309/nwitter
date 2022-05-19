@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, SignInMethod } from "firebase/auth";
 const Auth = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -15,28 +15,31 @@ const Auth = () => {
         }
 
     }
-    const onSubmit = async (event) => {
+    const LogIn = async (event) => {
         event.preventDefault();
         const auth = getAuth();
-        let data;
         try {
-            if (user) {
-                data = await signInWithEmailAndPassword(auth, email, password)
-                alert('로그인 성공')
-            }
-            else {
-                data = await createUserWithEmailAndPassword(auth, email, password)
-                alert("가입성공")
-                setUser(true);
-            }
+            await signInWithEmailAndPassword(auth, email, password)
+            setUser(true)
+            alert('로그인 성공')            
         }catch(error){
             alert(error)
         }
-
+    }
+    const CreateAccount = async (event) => {
+        event.preventDefault();
+        const auth = getAuth();
+        try {
+            await createUserWithEmailAndPassword(auth, email, password)
+            setUser(false)
+            alert('가입 성공')            
+        }catch(error){
+            alert(error)
+        }
     }
     return (
         <div>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={!user? LogIn:CreateAccount}>
                 <input
                     name="email"
                     type="text"
@@ -54,6 +57,7 @@ const Auth = () => {
                     onChange={onChange}
                 />
                 <input type="submit" value="Log In" />
+                <input type="submit" value="Create Account" />
             </form>
             <div>
                 <button>Continue with Google</button>
