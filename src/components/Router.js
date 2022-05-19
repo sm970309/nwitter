@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import Auth from "../routers/Auth";
-import Home from "../routers/Home";
 
-const AppRouter = () => {
-    const [islogin, setIsLogin] = useState(false);
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import Auth from "routers/Auth";
+import Home from "routers/Home";
+
+const AppRouter = ({isLoggedIn}) => {
+    
     return (
         <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-                {islogin ?
+                {isLoggedIn ?
                     <Route path="/">
                         <Home/>
                     </Route>
