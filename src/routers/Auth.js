@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, SignInMethod } from "firebase/auth";
+import { 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword,
+    getAuth, 
+    GoogleAuthProvider,
+    GithubAuthProvider, 
+    signInWithPopup} from "firebase/auth";
 const Auth = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -33,7 +39,20 @@ const Auth = () => {
         }
     }
     const onClick = () => {setUser(prev => !prev)}
-    
+    const onSocialClick= async (event) => {
+        const name = event.target.name
+        let provider;
+        const auth = getAuth();
+        if (name==='google'){
+            provider = new GoogleAuthProvider();
+        }
+        else{
+            provider = new GithubAuthProvider();
+        }
+        const data = await signInWithPopup(auth,provider)
+        console.log(data)
+    }
+
     return (
         <div>
             <form onSubmit={onSubmit}>
@@ -57,8 +76,8 @@ const Auth = () => {
             </form>
             <span onClick={onClick}>{user? "Sign Up":"Log In"}</span>
             <div>
-                <button>Continue with Google</button>
-                <button>Continue with Github</button>
+                <button onClick={onSocialClick} name = "google">Continue with Google</button>
+                <button onClick={onSocialClick} name = "github">Continue with Github</button>
             </div>
 
         </div>
