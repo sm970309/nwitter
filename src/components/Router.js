@@ -6,7 +6,7 @@ import Home from "routers/Home";
 import Profile from "routers/Profile";
 import Navigation from "./Navigation";
 
-const AppRouter = ({ isLoggedIn }) => {
+const AppRouter = ({ isLoggedIn,userObj }) => {
 
     return (
         <Router basename={process.env.PUBLIC_URL}>
@@ -14,7 +14,7 @@ const AppRouter = ({ isLoggedIn }) => {
             <Switch>
                 {isLoggedIn ?
                     <><Route exact path="/">
-                        <Home />
+                        <Home userObj={userObj} />
                     </Route>
                     <Route exact path="/profile">
                         <Profile/>
