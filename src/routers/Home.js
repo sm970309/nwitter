@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { addDoc, collection, doc, getDocs, getFirestore, onSnapshot, orderBy, query } from "firebase/firestore";
+import { addDoc, collection, getFirestore, onSnapshot, orderBy, query } from "firebase/firestore";
 import { fb } from "components/App";
+import Nweet from "components/Nweets";
 
 
 const Home = ({ userObj }) => {
@@ -9,7 +10,7 @@ const Home = ({ userObj }) => {
     const [nweets, setNweets] = useState([]);
 
     useEffect(() => {
-        const q= query(collection(db,"nweet"),orderBy('createTime',"desc"))
+        const q = query(collection(db, "nweet"), orderBy('createTime', "desc"))
         onSnapshot(q, (snapshot) => {
             const nweetArray = snapshot.docs.map((doc) => ({
                 id: doc.id,
@@ -51,11 +52,8 @@ const Home = ({ userObj }) => {
             </form>
             <div>
                 {nweets.map((n) =>
-                    <div key={n.id}>
-                        <h3>{n.text}</h3>
-                        <h4>{n.createName}</h4>
-
-                    </div>)}
+                    <Nweet key = {n.id} nweetObj={n} isOwner={n.createId===userObj.uid} />
+                )}
             </div>
         </div>
     )
