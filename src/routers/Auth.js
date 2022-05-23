@@ -12,7 +12,6 @@ const Auth = () => {
     const [user, setUser] = useState(false)
     const onChange = (event) => {
         const { target: { name, value } } = event;
-        console.log(name)
         if (name === "email") {
             setEmail(value);
         }
@@ -50,7 +49,6 @@ const Auth = () => {
             provider = new GithubAuthProvider();
         }
         const data = await signInWithPopup(auth,provider)
-        console.log(data)
     }
 
     return (
