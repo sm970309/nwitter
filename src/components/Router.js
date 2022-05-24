@@ -4,6 +4,7 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Auth from "routers/Auth";
 import Home from "routers/Home";
 import Profile from "routers/Profile";
+import Signup from "routers/Signup";
 import Navigation from "./Navigation";
 
 const AppRouter = ({ isLoggedIn,userObj }) => {
@@ -13,16 +14,22 @@ const AppRouter = ({ isLoggedIn,userObj }) => {
             {isLoggedIn ? <Navigation /> : null}
             <Switch>
                 {isLoggedIn ?
-                    <><Route exact path="/">
+                    <>
+                    <Redirect from="/signup" to= "/" />
+                    <Route exact path="/">
                         <Home userObj={userObj} />
                     </Route>
                     <Route exact path="/profile">
-                        <Profile/>
+                        <Profile userObj={userObj}/>
                     </Route>
+                    
                     </>
                     :
                     <>
-                    <Route path="/">
+                    <Route exact path="/signup">
+                        <Signup/>
+                    </Route>
+                    <Route exact path="/">
                         <Auth />
                     </Route>
                     <Redirect from="*" to= "/" />
