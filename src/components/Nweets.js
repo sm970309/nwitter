@@ -1,4 +1,5 @@
 import { deleteDoc, doc, getFirestore, updateDoc } from "firebase/firestore";
+import { deleteObject, getStorage, ref } from "firebase/storage";
 import React, { useState } from "react";
 import { fb } from "./App";
 
@@ -6,11 +7,18 @@ const Nweet = ({ nweetObj, isOwner }) => {
     const [editing,setEditing] = useState(false);
     const [newNweet,setNewNweet] = useState(nweetObj.text);
     const db = getFirestore(fb)
+    const storage = getStorage();
+    // const desertRef = ref(storage,`${nweetObj.imgURL}`)
     const NweetTextRef = doc(db,'nweet',`${nweetObj.id}`)
     const onDelete = async() =>{   
         const ok = window.confirm("Are you Sure?")
         if (ok){
             await deleteDoc(NweetTextRef);
+            if (nweetObj.imgURL){
+                const desertRef = ref(storage,`${nweetObj.imgURL}`)
+                await deleteObject(desertRef);
+            }
+            
         }
     }
     const toggleEditing = () =>{
@@ -27,6 +35,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
             text:newNweet
         })
     }
+    
     return (
         <div>
             {!editing? 
