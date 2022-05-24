@@ -30,7 +30,7 @@ const Home = ({ userObj }) => {
                 await addDoc(collection(db, 'nweet'), {
                     text: nweet,
                     createId: userObj.uid,
-                    createName: userObj.displayName,
+                    createName: userObj.email,
                     createTime: Date.now()
                 })
             }
