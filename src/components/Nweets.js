@@ -32,7 +32,9 @@ const Nweet = ({ nweetObj, isOwner }) => {
             {!editing? 
             <>
             <h3>{nweetObj.text}</h3>
+            {nweetObj.imgURL &&<img src={nweetObj.imgURL} width="200px" height="150px"/>}
             <h5>{nweetObj.createName}</h5>
+            
             {isOwner && 
             <>
                 <button onClick={onDelete}>Delete</button>

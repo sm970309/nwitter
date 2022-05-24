@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import {initializeApp} from "firebase/app";
 import { getAuth, onAuthStateChanged} from "firebase/auth";
 
-
 const firebaseConfig = {
     apiKey: "AIzaSyAmjl19GYUg0emRh0JH6KRfnbb8HIxiyDU",
     authDomain: "nwitter-ff1a0.firebaseapp.com",
