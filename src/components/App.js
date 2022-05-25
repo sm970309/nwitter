@@ -14,7 +14,6 @@ const firebaseConfig = {
 export const fb = initializeApp(firebaseConfig);
 export const auth = getAuth();
 
-
 function App() {
   const [userObj,setUserObj] = useState(null);
   const [init,setInit] = useState(false);

@@ -27,7 +27,7 @@ const Form = () => {
         }
     }
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} className="container" style={{marginBottom:"10px"}}>
             <input
                 name="email"
                 type="text"
@@ -35,6 +35,7 @@ const Form = () => {
                 required
                 value={email}
                 onChange={onChange}
+                className="authInput"
             />
             <input
                 name="password"
@@ -43,10 +44,15 @@ const Form = () => {
                 required
                 value={password}
                 onChange={onChange}
+                className="authInput"
             />
             <div>
-                <input type="submit" value="Log In" />
+                <input type="submit" value="Log In" 
+                className="authInput authSubmit"
+                />
+                <center>
                 <Link to='/signup'>Create Account</Link>
+                </center>
             </div>
         </form>
     )
