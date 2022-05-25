@@ -6,12 +6,12 @@ import { fb } from "./App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
-const Nweet = ({ nweetObj, isOwner }) => {
+const Nweet = ({nweetObj, isOwner }) => {
     const [editing, setEditing] = useState(false);
     const [newNweet, setNewNweet] = useState(nweetObj.text);
     const db = getFirestore(fb)
     const storage = getStorage();
-    // const desertRef = ref(storage,`${nweetObj.imgURL}`)
+    const photo = nweetObj.photoURL
     const NweetTextRef = doc(db, 'nweet', `${nweetObj.id}`)
     const onDelete = async () => {
         const ok = window.confirm("Are you Sure?")
@@ -43,13 +43,13 @@ const Nweet = ({ nweetObj, isOwner }) => {
         <div className="nweet">
             {!editing ?
                 <>
-                    <h3>{nweetObj.text}</h3>
-                    {nweetObj.imgURL && <img src={nweetObj.imgURL}/>}
-                    <h5>{nweetObj.createName}</h5>
+                    <div>{nweetObj.text}</div>
+                    {nweetObj.imgURL && <img className="nweet__img" src={nweetObj.imgURL}/>}
+                    {photo && <img className="nweet__photo" src={photo}/>}
+                    <h4>{nweetObj.createName}</h4>
 
                     {isOwner &&
                         <div className="nweet__actions">
-
                             <span onClick={onDelete}>
                                 <FontAwesomeIcon icon={faTrash} />
                             </span>

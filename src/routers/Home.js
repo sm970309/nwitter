@@ -44,7 +44,8 @@ const Home = ({ userObj }) => {
                 createId: userObj.uid,
                 createName: userObj.email,
                 createTime: Date.now(),
-                imgURL: url
+                imgURL: url,
+                photoURL: (userObj.photoURL? userObj.photoURL:"https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927")
             })
         }
         catch (e) {
@@ -104,7 +105,7 @@ const Home = ({ userObj }) => {
             </form>
             <div style={{ marginTop: 30 }}>
                 {nweets.map((n) =>
-                    <Nweet key={n.id} nweetObj={n} isOwner={n.createId === userObj.uid} />
+                    <Nweet key={n.id} nweetObj={n} isOwner={n.createId === userObj.uid}/>
                 )}
             </div>
         </div>
