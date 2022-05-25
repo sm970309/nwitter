@@ -8,6 +8,7 @@ const Form = () => {
     const auth = getAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error,setError] = useState("");
     const onChange = (event) => {
         const { target: { name, value } } = event;
         if (name === "email") {
@@ -22,8 +23,8 @@ const Form = () => {
         try {
             await signInWithEmailAndPassword(auth, email, password)
             alert('로그인 성공')
-        } catch (error) {
-            alert(error)
+        } catch (e) {
+            setError(e.message)
         }
     }
     return (
@@ -51,6 +52,7 @@ const Form = () => {
                 className="authInput authSubmit"
                 />
                 <center>
+                {error && <div className="authError">{error}</div>}
                 <Link to='/signup'>Create Account</Link>
                 </center>
             </div>
