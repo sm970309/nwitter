@@ -1,6 +1,5 @@
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth"
 import { useState } from "react";
-import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom"
 
 const Signup = () => {
