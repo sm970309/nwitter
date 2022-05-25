@@ -79,7 +79,7 @@ const Profile = ({ userObj }) => {
                     <div style={{ marginTop: "30px"}}>
                         <label htmlFor="upload" className="formBtn">Choose File</label>
                         <input onChange={onFileChange} style={{ display: "none" }} id="upload" type="file" accept="image/*" />
-                        <span className="formBtn cancelBtn logOut" onClick={() => signOut(auth)}>
+                        <span className="formBtn cancelBtn" onClick={() => signOut(auth)}>
                             Log Out
                         </span>
 
