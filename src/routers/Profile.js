@@ -38,20 +38,20 @@ const Profile = ({ userObj }) => {
 
 
     }
-    const updatePhoto = async() => {
-        let url=null;
+    const updatePhoto = async () => {
+        let url = null;
         if (photo !== null) {
             const FILE_NAME = uuidv4();
             const storageRef = ref(storage, `${userObj.uid}/${FILE_NAME}`)
             await uploadString(storageRef, photo, "data_url")
-            url = await getDownloadURL(storageRef)       
+            url = await getDownloadURL(storageRef)
         }
         try {
             updateProfile(auth.currentUser, {
                 photoURL: url
             })
             window.alert("Update Complete")
-        }catch(e){
+        } catch (e) {
             console.error(e)
         }
     }
@@ -63,35 +63,34 @@ const Profile = ({ userObj }) => {
         getMyNweets();
     }, [])
 
-    return (<>
-        <h2>HI! {userObj.displayName}</h2>
-        {photo ?
-            <img width="100px" height="100px" src={photo} />
-            : <img width="100px" height="100px" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927" />}
-        {update ?
-            <div>
-                <button onClick={updatePhoto}>Update Profile</button>
-                <button onClick={canelChange}>Cancel</button>
-            </div> :
-            <div>
-                <button>
-                    <label htmlFor="upload">Choose File</label>
-                </button>
-                <input onChange={onFileChange} style={{ display: "none" }} id="upload" type="file" accept="image/*"/>
+    return (
+        <div className="container">
+            <div className="profileForm">
 
-                <button onClick={() => signOut(auth)}>
-                    Log Out
-                </button>
+                {photo ?
+                    <img className="profile__img" src={photo} />
+                    : <img className="profile__img" src="https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927" />}
+                <span style={{marginTop: 30,fontSize:40}}>{userObj.displayName}</span>
+                {update ?
+                    <div style={{ marginTop: "30px"}}>
+                        <span onClick={updatePhoto} className="formBtn">Update Profile</span>
+                        <span onClick={canelChange} className="formBtn cancelBtn logOut">Cancel</span>
+                    </div> :
+                    <div style={{ marginTop: "30px"}}>
+                        <label htmlFor="upload" className="formBtn">Choose File</label>
+                        <input onChange={onFileChange} style={{ display: "none" }} id="upload" type="file" accept="image/*" />
+                        <span className="formBtn cancelBtn logOut" onClick={() => signOut(auth)}>
+                            Log Out
+                        </span>
 
-            </div>}
-
-
-        <div>
-            {nweets.map((n) =>
-                <Nweet key={n.id} nweetObj={n} isOwner={true} />
-            )}
+                    </div>}
+            </div>
+            <div style={{ marginTop: 30 }}>
+                {nweets.map((n) =>
+                    <Nweet key={n.id} nweetObj={n} isOwner={true} />
+                )}
+            </div>
         </div>
-    </>
 
     )
 }
