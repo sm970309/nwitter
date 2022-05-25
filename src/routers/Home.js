@@ -77,7 +77,7 @@ const Home = ({ userObj }) => {
                     <input onChange={onChange} value={nweet} type="text" placeholder="What's on your mind?" maxLength={120} />
                     <input type="submit" value="Nweet" />
                 </div>
-                <input type="file" accept="image/*" onChange={onFileChange} />
+                <input type="file" accept="image/*" onChange={onFileChange}/>
                 <div>
                     {Boolean(attach) ? <>
                         <img src={attach} width="200px" height="150px" />
