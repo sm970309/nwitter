@@ -56,7 +56,7 @@ const Signup = () => {
                 <input
                     name="email"
                     type="text"
-                    placeholder="Email"
+                    placeholder="example@gmail.com"
                     required
                     value={email}
                     onChange={onChange}
@@ -65,7 +65,7 @@ const Signup = () => {
                 <input
                     name="password"
                     type="password"
-                    placeholder="Password"
+                    placeholder="Password (at least 6 characters)"
                     required
                     value={password}
                     onChange={onChange}

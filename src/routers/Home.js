@@ -13,6 +13,8 @@ const Home = ({ userObj }) => {
     const [nweet, setNweet] = useState('');
     const [nweets, setNweets] = useState([]);
     const [attach, setAttach] = useState(null);
+    const [pb,setPb] = useState(true);
+
     useEffect(() => {
         const q = query(collection(db, "nweet"), orderBy('createTime', "desc"))
         onSnapshot(q, (snapshot) => {
@@ -22,7 +24,6 @@ const Home = ({ userObj }) => {
             }))
             setNweets(nweetArray)
         })
-
     }, [])
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -45,7 +46,10 @@ const Home = ({ userObj }) => {
                 createName: userObj.email,
                 createTime: Date.now(),
                 imgURL: url,
-                photoURL: (userObj.photoURL? userObj.photoURL:"https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927")
+                photoURL: (userObj.photoURL? userObj.photoURL:"https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927"),
+                scope:pb,
+                userName: userObj.displayName
+                
             })
         }
         catch (e) {
@@ -82,7 +86,14 @@ const Home = ({ userObj }) => {
                         onChange={onChange} value={nweet} type="text" placeholder="What's on your mind?" maxLength={120} />
                     <input className="factoryInput__arrow" type="submit" value="Nweet" />
                 </div>
-                
+                <div className="factoryCheck__label" onClick={()=>setPb((prev)=>!prev)}>
+                    공개범위:
+                {pb? 
+                <span > Public</span>:
+                <>
+                <span > Private</span>
+                </>}
+                </div>
                 <label for="attach-file" className="factoryInput__label">
                     <span>Add photos</span>
                     <FontAwesomeIcon icon={faPlus} />
